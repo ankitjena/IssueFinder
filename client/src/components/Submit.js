@@ -10,6 +10,8 @@ class Submit extends Component {
       category: '',
       subject: '',
       description: '',
+      filename: '',
+      image: '',
       file: null
     }
     this.handleChange = this.handleChange.bind(this)
@@ -32,13 +34,25 @@ class Submit extends Component {
   }
 
   handleFileChange(event) {
+    console.log(event.target.files[0].name);
     this.setState({
-      file: URL.createObjectURL(event.target.files[0])
+      file: URL.createObjectURL(event.target.files[0]),
+      filename: event.target.files[0].name,
+      image: event.target.files[0]
     })
   }
 
   handleSubmit(event) {
     console.log(this.state);
+    let formData = new FormData();
+    Object.assign(formData, {
+      category: this.state.category,
+      subject: this.state.subject,
+      description: this.state.subject,
+      filename: this.state.filename,
+      file: this.state.image
+    });
+    console.log(formData);
   }
 
   render() {
@@ -55,7 +69,7 @@ class Submit extends Component {
           </Form.Field>
           <Form.Field inline>
             <label>Category</label>
-            <Select name="category" placeholder="Select the category" options={options} onChange={this.handleSelect} />
+            <Select name="category" placeholder="Select the category" options={options} onChange={this.handleSelect}/>
           </Form.Field>
           <Form.Field>
             <label>Subject</label>
