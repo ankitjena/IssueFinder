@@ -7,7 +7,7 @@ import Layout from './Layout';
 const Home = () => {
   return (
     <Layout>
-      <p>Hello World of React and Webpack!</p>
+      <p>Feed</p>
       <p>
         <Link to="/profile">Navigate to Dynamic Page</Link>
       </p>

@@ -18,6 +18,7 @@ class Submit extends Component {
     this.handleSelect = this.handleSelect.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.resetForm = this.resetForm.bind(this)
   }
 
   handleSelect(event, value) {
@@ -35,9 +36,25 @@ class Submit extends Component {
   handleFileChange(event) {
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
-      image: event.target.files[0],
-      filename: event.target.files[0].name
+      image: event.target.files[0]
     })
+  }
+
+  resetForm() {
+    // console.log(this.state)
+    console.log("form reset");
+    this.input.value = '';
+    // this.input2.value = '';
+    this.refs.description.value = '';
+    this.setState ({
+      category: '',
+      subject: '',
+      description: '',
+      image: '',
+      file: null
+    })
+
+    // console.log(this.state)
   }
 
   handleSubmit(event) {
@@ -48,7 +65,7 @@ class Submit extends Component {
     formData.append('subject', this.state.subject);
     formData.append('description', this.state.description);
     formData.append('filename', this.state.filename);
-    console.log(formData);
+    // console.log(formData);
     for (var key of formData.entries()) {
       console.log(key[0],key[1]);
     }
@@ -63,6 +80,10 @@ class Submit extends Component {
     })
     .then(res => {
       console.log(res);
+      alert('submitted');
+      this.resetForm();
+      // event.target.reset();
+      // this.formRef.value = '';
     })
     .catch(error => {
       console.log(error);
@@ -75,7 +96,7 @@ class Submit extends Component {
                     {key: 'el', value: 'Electricity', text:'Electricity'}]
     return (
       <Layout>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} >
           <Form.Field>
             <label>Image:</label>
             <input type="file" onChange={this.handleFileChange}/>
@@ -87,7 +108,7 @@ class Submit extends Component {
           </Form.Field>
           <Form.Field>
             <label>Subject</label>
-            <input name="subject" placeholder="subject" onChange={this.handleChange}/>
+            <input name="subject" placeholder="subject" onChange={this.handleChange} ref={(input) => this.input = input}/>
           </Form.Field>
           <Form.Field>
             <label>Description</label>
