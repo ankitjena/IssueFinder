@@ -8,7 +8,7 @@ var problemSchema = new Schema({
   category: { type: String, required: true},
   subject: { type: String, required: true},
   description: { type: String, required: true},
-  file: { type: String, required: true},
+  filename: { type: String, required: true},
   comments : [],
   author: { type: String, default:'ankit'},
   timestamp: { type: Date, default: Date.now}

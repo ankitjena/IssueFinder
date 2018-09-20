@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import { Button, Form, Select, TextArea } from 'semantic-ui-react';
 
 import Layout from './Layout';
@@ -10,7 +11,6 @@ class Submit extends Component {
       category: '',
       subject: '',
       description: '',
-      filename: '',
       image: '',
       file: null
     }
@@ -27,32 +27,46 @@ class Submit extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target);
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
   handleFileChange(event) {
-    console.log(event.target.files[0].name);
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
-      filename: event.target.files[0].name,
-      image: event.target.files[0]
+      image: event.target.files[0],
+      filename: event.target.files[0].name
     })
   }
 
   handleSubmit(event) {
-    console.log(this.state);
-    let formData = new FormData();
-    Object.assign(formData, {
-      category: this.state.category,
-      subject: this.state.subject,
-      description: this.state.subject,
-      filename: this.state.filename,
-      file: this.state.image
-    });
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', this.state.image);
+    formData.append('category', this.state.category);
+    formData.append('subject', this.state.subject);
+    formData.append('description', this.state.description);
+    formData.append('filename', this.state.filename);
     console.log(formData);
+    for (var key of formData.entries()) {
+      console.log(key[0],key[1]);
+    }
+    // const obj = {
+    //   "category" : this.state.category,
+    //   "subject" : this.state.subject
+    // }
+    axios.post('http://localhost:8000/api/', formData, {
+      headers : {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   render() {
