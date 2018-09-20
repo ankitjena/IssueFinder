@@ -41,6 +41,7 @@ const upload = multer({ storage: storage });
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  console.log("hahah")
   res.send('respond with a resource');
 });
 
@@ -58,4 +59,18 @@ router.post('/', upload.single('file'), (req, res) => {
       res.send(err)
     })
 });
+
+router.get('/problems', function(req, res, next) {
+  problemModel.find({}, function(err, data){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(data)
+      // res.json(data);
+      res.send(data);;
+    }
+  })
+})
+
 module.exports = router;
