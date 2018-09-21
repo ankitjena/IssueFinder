@@ -22,7 +22,6 @@ class Home extends Component {
       }
     }).then(problems => {
       this.setState({problems : problems.data});
-      console.log(this.state.problems[0])
     })
     .catch(error => {
       console.log(error);
@@ -33,7 +32,6 @@ class Home extends Component {
     return(
       <Layout>
         <NavBar curr="feed" />
-        <p>Feed</p>
         {this.state.problems.map(problem => (
           <Feed problem={problem} key={problem._id}/>
         ))}

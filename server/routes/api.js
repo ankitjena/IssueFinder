@@ -45,11 +45,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', upload.single('file'), (req, res) => {
-    console.log(req.body);
-    console.log(req.file.filename);
     let model = new problemModel(req.body);
     model.filename = file_name;
-    console.log(model);
     model.save()
     .then((team) => {
       res.send(team)
@@ -65,8 +62,6 @@ router.get('/problems', function(req, res, next) {
       console.log(err);
     }
     else{
-      // console.log(data)
-      // res.json(data);
       res.send(data);;
     }
   })
