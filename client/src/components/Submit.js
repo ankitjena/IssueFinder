@@ -42,11 +42,8 @@ class Submit extends Component {
   }
 
   resetForm() {
-    // console.log(this.state)
     console.log("form reset");
-    this.input.value = '';
-    // this.input2.value = '';
-    this.refs.description.value = '';
+    document.getElementById('submitform').reset();
     this.setState ({
       category: '',
       subject: '',
@@ -54,8 +51,6 @@ class Submit extends Component {
       image: '',
       file: null
     })
-
-    // console.log(this.state)
   }
 
   handleSubmit(event) {
@@ -66,14 +61,9 @@ class Submit extends Component {
     formData.append('subject', this.state.subject);
     formData.append('description', this.state.description);
     formData.append('filename', this.state.filename);
-    // console.log(formData);
     for (var key of formData.entries()) {
       console.log(key[0],key[1]);
     }
-    // const obj = {
-    //   "category" : this.state.category,
-    //   "subject" : this.state.subject
-    // }
     axios.post('http://localhost:8000/api/', formData, {
       headers : {
         'Content-Type': 'application/json'
@@ -83,8 +73,6 @@ class Submit extends Component {
       console.log(res);
       alert('submitted');
       this.resetForm();
-      // event.target.reset();
-      // this.formRef.value = '';
     })
     .catch(error => {
       console.log(error);
@@ -98,7 +86,7 @@ class Submit extends Component {
     return (
       <Layout>
         <NavBar curr="submit"/>
-        <Form onSubmit={this.handleSubmit}>
+        <Form id="submitform" onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>Image:</label>
             <input type="file" onChange={this.handleFileChange}/>
@@ -110,7 +98,7 @@ class Submit extends Component {
           </Form.Field>
           <Form.Field>
             <label>Subject</label>
-            <input name="subject" placeholder="subject" onChange={this.handleChange} ref={(input) => this.input = input}/>
+            <input name="subject" placeholder="subject" onChange={this.handleChange}/>
           </Form.Field>
           <Form.Field>
             <label>Description</label>
