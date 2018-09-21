@@ -11,9 +11,8 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      Problems : []
+      problems : []
     }
-    this.showFeed = this.showFeed.bind(this)
   }
 
   componentDidMount() {
@@ -21,24 +20,13 @@ class Home extends Component {
       headers : {
         'Content-Type' : 'application/json'
       }
-    }).then(res => {
-      // console.log(res);
-      return res;
-    }).then(Problems => {
-      // console.log(this.state)
-      // console.log(problems);
-      this.setState({Problems : Problems.data});
-      // console.log(this.state)
+    }).then(problems => {
+      this.setState({problems : problems.data});
+      console.log(this.state.problems[0])
     })
     .catch(error => {
       console.log(error);
     })
-  }
-
-  showFeed(problem) {
-    console.log("hihi");
-    // console.log(problem);
-    <Feed problem={problem} />
   }
 
   render() {
@@ -46,13 +34,9 @@ class Home extends Component {
       <Layout>
         <NavBar curr="feed" />
         <p>Feed</p>
-        <div>
-        {this.state.Problems.map(problem=> {
-          // console.log(problem)
-           {this.showFeed(problem)}
-        }
-      )}
-        </div>
+        {this.state.problems.map(problem => (
+          <Feed problem={problem} key={problem._id}/>
+        ))}
       </Layout>
     )
   }

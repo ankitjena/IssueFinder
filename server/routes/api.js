@@ -67,7 +67,7 @@ router.get('/problems', function(req, res, next) {
     else{
       // console.log(data)
       // res.json(data);
-      res.send(json(data));;
+      res.send(data);;
     }
   })
 })
