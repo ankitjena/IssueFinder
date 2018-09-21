@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Button, Form, Select, TextArea } from 'semantic-ui-react';
 
 import Layout from './Layout';
+import NavBar from './NavBar';
 
 class Submit extends Component {
   constructor(props) {
@@ -96,7 +97,8 @@ class Submit extends Component {
                     {key: 'el', value: 'Electricity', text:'Electricity'}]
     return (
       <Layout>
-        <Form onSubmit={this.handleSubmit} >
+        <NavBar curr="submit"/>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>Image:</label>
             <input type="file" onChange={this.handleFileChange}/>

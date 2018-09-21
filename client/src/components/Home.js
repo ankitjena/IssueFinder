@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react'
 
 import Layout from './Layout';
+import NavBar from './NavBar';
 
 class Home extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Home extends Component {
   render() {
     return(
       <Layout>
+        <NavBar curr="feed" />
         <p>Feed</p>
       </Layout>
     )

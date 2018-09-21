@@ -13,7 +13,6 @@ const Layout = ({ children }) => {
           Issue Finder!
         </Header>
       </Link>
-      <NavBar />
       {children}
       <Divider />
     </Container>
