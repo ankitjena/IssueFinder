@@ -41,7 +41,6 @@ const upload = multer({ storage: storage });
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  console.log("hahah")
   res.send('respond with a resource');
 });
 
@@ -66,11 +65,35 @@ router.get('/problems', function(req, res, next) {
       console.log(err);
     }
     else{
-      console.log(data)
+      // console.log(data)
       // res.json(data);
-      res.send(data);;
+      res.send(json(data));;
     }
   })
 })
+
+router.get('/image/:filename', function(req, res, next)  {
+  gfs.files.findOne({ filename: req.params.filename }, function(err, file)  {
+    // Check if file
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: 'No file exists'
+      });
+    }
+
+    // Check if image
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      // Read output to browser
+      const readstream = gfs.createReadStream(file.filename);
+      return readstream.pipe(res);
+
+    } else {
+      res.status(404).json({
+        err: 'Not an image'
+      });
+    }
+  });
+});
+
 
 module.exports = router;
