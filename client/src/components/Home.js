@@ -31,7 +31,6 @@ class Home extends Component {
   render() {
     return(
       <Layout>
-        <NavBar curr="feed" />
         {this.state.problems.map(problem => (
           <Feed problem={problem} key={problem._id}/>
         ))}

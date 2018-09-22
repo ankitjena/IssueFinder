@@ -85,7 +85,6 @@ class Submit extends Component {
                     {key: 'el', value: 'Electricity', text:'Electricity'}]
     return (
       <Layout>
-        <NavBar curr="submit"/>
         <Form id="submitform" onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>Image:</label>
