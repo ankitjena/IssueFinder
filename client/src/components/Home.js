@@ -29,6 +29,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.state.problems);
     return(
       <Layout>
         {this.state.problems.map(problem => (

@@ -37,7 +37,7 @@ var storage = new GridFsStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const upload =  multer({ storage: storage });
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -89,6 +89,43 @@ router.get('/image/:filename', function(req, res, next)  {
     }
   });
 });
+
+router.post('/problems/upvote/:id', (req, res, next) => {
+  console.log(req.params.id);
+  problemModel.findByIdAndUpdate(req.params.id, { $inc: {upvotes : 1} }, (err, problem) => {
+    if(err) {
+      console.log(err);
+    }
+    res.json({upvotes:problem.upvotes})
+  })
+})
+
+router.post('/problems/downvote/:id', (req, res, next) => {
+  console.log(req.params.id);
+  problemModel.findByIdAndUpdate(req.params.id, { $inc: {downvotes : 1} }, (err, problem) => {
+    if(err) {
+      console.log(err);
+    }
+    res.json({downvotes:problem.downvotes})
+  })
+})
+
+router.post('/problems/comment/:id', (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params.id);
+  let obj = {
+    author: req.body.author,
+    text: req.body.text,
+    time: req.body.time
+  }
+  console.log(obj);
+  problemModel.findByIdAndUpdate(req.params.id, { $push : {comments: obj}}, (err, problem) => {
+    if(err) {
+      console.log(err);
+    }
+    res.send("ok")
+  })
+})
 
 
 module.exports = router;

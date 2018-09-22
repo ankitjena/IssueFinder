@@ -17,10 +17,10 @@ var problemSchema = new Schema({
 });
 
 // Need to add callback functions And check them after implementation
-// problemSchema.methods.upVote = function (id) {
-//   this.findByIdandUpdate(id, { $inc: {upvotes : 1 }});
-//   })
-// }
+problemSchema.methods.addUpVote = function (id) {
+  this.findByIdAndUpdate(id, { $inc: {upvotes : 1 }});
+  return this.upvotes;
+  }
 //
 // problemSchema.methods.downVote = function (id) {
 //   this.findByIdandUpdate(id, { $inc: {downvotes : 1}});
