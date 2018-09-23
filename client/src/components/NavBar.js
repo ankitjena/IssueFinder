@@ -48,23 +48,19 @@ class NavBar extends Component {
     if(loggedIn) {
       return(
         <Menu tabular>
-          <Link to="/"><Menu.Item name='feed' active={this.state.activeItem === 'feed'}>Feed</Menu.Item></Link>
+          <Link to="/home"><Menu.Item name='feed' active={this.state.activeItem === 'feed'}>Feed</Menu.Item></Link>
           <Link to="/profile"><Menu.Item name='profile' active={this.state.activeItem === 'profile'}>Profile</Menu.Item></Link>
           <Link to="/submit"><Menu.Item name='submit' active={this.state.activeItem === 'submit'}>Submit</Menu.Item></Link>
-          <Link to="#" onClick = {this.logout} ><Menu.Item name='login' active={this.state.activeItem === 'submit'}>Logout</Menu.Item></Link>
+          <Link to="#" onClick = {this.logout} ><Menu.Item name='logout' active={this.state.activeItem === 'submit'}>Logout</Menu.Item></Link>
         </Menu>
       )
     }
     else {
     return(
-      <Menu tabular>
-        <Link to="/"><Menu.Item name='feed' active={this.state.activeItem === 'feed'}>Feed</Menu.Item></Link>
-        <Link to="/profile"><Menu.Item name='profile' active={this.state.activeItem === 'profile'}>Profile</Menu.Item></Link>
-        <Link to="/submit"><Menu.Item name='submit' active={this.state.activeItem === 'submit'}>Submit</Menu.Item></Link>
-        <Link to="/login"><Menu.Item name='login' active={this.state.activeItem === 'submit'}>LogIn</Menu.Item></Link>
-        <Link to="/signup"><Menu.Item name='login' active={this.state.activeItem === 'submit'}>SignUp</Menu.Item></Link>
-      </Menu>
-    )
+      <div>
+      <h1> Issue Finder </h1>
+      </div>
+    );
   }
 }
 }

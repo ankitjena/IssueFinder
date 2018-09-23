@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Button, Form, Select, TextArea } from 'semantic-ui-react';
-
+import First from './First';
 import Layout from './Layout';
 import NavBar from './NavBar';
 
@@ -80,6 +80,8 @@ class Submit extends Component {
   }
 
   render() {
+    if(this.props.loggedIn == true) {
+    console.log(this.props.loggedIn)
     const options = [{key: 'hc', value: 'Healthcare', text:'Healthcare'},
                       {key: 'rs', value: 'Road Safety', text:'Road Safety'},
                     {key: 'el', value: 'Electricity', text:'Electricity'}]
@@ -108,6 +110,15 @@ class Submit extends Component {
         </Form>
       </Layout>
     )
+  }
+  else {
+    {
+      console.log(this.props.loggedIn)
+      return(
+        <First />
+      )
+    }
+  }
   }
 }
 

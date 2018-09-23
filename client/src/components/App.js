@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 import NoMatch from './NoMatch';
 import LoginForm from './login-form';
 import Signup from './sign-up'
+import First from './First';
 
 class App extends Component {
   constructor(props){
@@ -56,9 +57,11 @@ class App extends Component {
       <div>
         <NavBar active = 'feed' updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/profile" component={DynamicPage} />
-          <Route exact path="/submit" component={Submit} />
+          <Route exact path="/" component={First} loggedIn={this.state.loggedIn} />
+          // <Route exact path="/home" component={Home} loggedIn={this.state.loggedIn} />
+          <Route exact path="/home" render = {() => <Home loggedIn={this.state.loggedIn} /> } />
+          <Route exact path="/profile" render ={ () => <DynamicPage loggedIn={this.state.loggedIn} /> } />
+          <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} /> } />
         <Route
           path="/login"
           render={() =>

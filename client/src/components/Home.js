@@ -6,6 +6,7 @@ import { Menu } from 'semantic-ui-react'
 import Feed from './Feed';
 import Layout from './Layout';
 import NavBar from './NavBar';
+import First from './First';
 
 class Home extends Component {
   constructor(props) {
@@ -29,6 +30,8 @@ class Home extends Component {
   }
 
   render() {
+    if(this.props.loggedIn == true){
+    console.log(this.props.loggedIn)
     console.log(this.state.problems);
     return(
       <Layout>
@@ -37,6 +40,15 @@ class Home extends Component {
         ))}
       </Layout>
     )
+  }
+  else {
+      console.log(this.props.loggedIn)
+      return(
+        <div>
+        <First />
+        </div>
+      )
+  }
   }
 }
 
