@@ -58,7 +58,6 @@ class App extends Component {
         <NavBar active = 'feed' updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Switch>
           <Route exact path="/" component={First} loggedIn={this.state.loggedIn} />
-          // <Route exact path="/home" component={Home} loggedIn={this.state.loggedIn} />
           <Route exact path="/home" render = {() => <Home loggedIn={this.state.loggedIn} /> } />
           <Route exact path="/profile" render ={ () => <DynamicPage loggedIn={this.state.loggedIn} /> } />
           <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} /> } />
