@@ -24,6 +24,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/problem", err => {
   }
 });
 
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -33,7 +34,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.set('view engine', 'jade')
-app.use(morgan('dev'));
+
+app.use('/', index);
+app.use('/api', api);
 
 app.use(
 	session({
@@ -50,9 +53,10 @@ app.use(passport.session()) // calls the deserializeUser
 
 
 
-app.use('/', index);
-app.use('/api', api);
 app.use('/user', user);
+
+
+
 
 
 // catch 404 and forward to error handler

@@ -49,6 +49,10 @@ class Signup extends Component {
 	}
 
 render() {
+	if (this.state.redirectTo) {
+		return <Redirect to = {{ pathname: this.state.redirectTo }} />
+	}
+	else {
   return (
     <Layout>
       <h1> SignUp </h1>
@@ -70,6 +74,7 @@ render() {
       </Form>
     </Layout>
   )
+}
 }
 
 }

@@ -54,7 +54,12 @@ class LoginForm extends Component {
     }
 
     render() {
-      return(
+      if (this.state.redirectTo) {
+        return <Redirect to = {{ pathname: this.state.redirectTo}} />
+      }
+      else
+      {
+        return(
         <Layout>
           <h1> Login </h1>
           <Form id="loginform" onSubmit={this.handleSubmit}>
@@ -71,6 +76,7 @@ class LoginForm extends Component {
           </Form>
         </Layout>
       )
+    }
     }
   }
 
