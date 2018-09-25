@@ -9,7 +9,6 @@ const CommentList = ({comment}) => {
         <Comment.Text>
           <p>{comment.text}</p>
         </Comment.Text>
-        <Comment.Metadata>{comment.time}</Comment.Metadata>
       </Comment.Content>
     </Comment>
   );

@@ -63,10 +63,11 @@ router.get('/', (req, res, next) => {
     console.log('===== user!!======')
     console.log(req.user)
     userActive = mcache.get("token");
+    console.log(userActive);
     if (userActive) {
-        res.json({ user: userActive })
+        res.send(userActive)
     } else {
-        res.json({ user: null })
+        res.send(null)
     }
 })
 

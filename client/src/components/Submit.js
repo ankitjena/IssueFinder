@@ -58,6 +58,7 @@ class Submit extends Component {
     const formData = new FormData();
     formData.append('file', this.state.image);
     formData.append('category', this.state.category);
+    formData.append('author', this.props.username)
     formData.append('subject', this.state.subject);
     formData.append('description', this.state.description);
     formData.append('filename', this.state.filename);

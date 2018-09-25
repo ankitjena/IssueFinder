@@ -35,7 +35,7 @@ class Home extends Component {
       <Layout>
         <NavBar curr="feed" />
         {this.state.problems.map(problem => (
-          <Feed problem={problem} key={problem._id}/>
+          <Feed problem={problem} key={problem._id} username={this.props.username}/>
         ))}
       </Layout>
     )

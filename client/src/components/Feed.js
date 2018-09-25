@@ -85,7 +85,7 @@ class Feed extends Component {
           <Icon name="comment outline" size="large" onClick={this.showCommentBox}/>
           <Header as='h6'>{this.props.problem.timestamp}</Header>
           <p>{this.state.upvotes} upvotes {this.state.downvotes} downvotes</p>
-          {this.state.display ? (<CommentBox id={this.props.problem._id} comments={this.props.problem.comments}/>):''}
+          {this.state.display ? (<CommentBox id={this.props.problem._id} comments={this.props.problem.comments} username={this.props.username}/>):''}
           <Divider />
         </div>
     )

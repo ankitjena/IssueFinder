@@ -115,8 +115,7 @@ router.post('/problems/comment/:id', (req, res, next) => {
   console.log(req.params.id);
   let obj = {
     author: req.body.author,
-    text: req.body.text,
-    time: req.body.time
+    text: req.body.text
   }
   console.log(obj);
   problemModel.findByIdAndUpdate(req.params.id, { $push : {comments: obj}}, (err, problem) => {

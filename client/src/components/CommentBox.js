@@ -32,15 +32,14 @@ class CommentBox extends Component{
   addComment(e) {
     e.preventDefault();
     const data = {
-      author: 'username',
-      text: this.state.text,
-      time: new Date()
+      author: this.props.username,
+      text: this.state.text
     }
     console.log(data);
-    // this.state.comments.push(data);
-    // this.setState({
-    //   comments: this.state.comments
-    // })
+    this.state.comments.push(data);
+    this.setState({
+      comments: this.state.comments
+    })
     console.log(this.state.comments);
     let url = "http://localhost:8000/api/problems/comment/" + this.props.id;
     axios.post(url, data)
@@ -55,8 +54,8 @@ class CommentBox extends Component{
   render () {
     return (
     <Comment.Group>
-      {this.state.comments.map(comment => (
-      <CommentList comment={comment} key={comment.time} />
+      {this.state.comments.map((comment, key) => (
+      <CommentList comment={comment} key={key} />
     ))}
       <Form reply>
         <Form.TextArea onChange={this.handleChange} />
