@@ -8,7 +8,7 @@ import { pullRight, h1 } from './layout.css';
 const Layout = ({ children }) => {
   return (
     <Container>
-      <Link to="/">
+      <Link to="/home">
         <Header as="h1" className={h1}>
           Issue Finder!
         </Header>

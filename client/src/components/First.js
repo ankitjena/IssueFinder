@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Container, Divider, Icon } from 'semantic-ui-react';
+import { Header, Container, Divider } from 'semantic-ui-react';
 
 
 

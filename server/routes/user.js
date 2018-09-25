@@ -7,6 +7,7 @@ const mcache = require('memory-cache');
 
 router.post('/signup', (req, res) => {
     console.log('user signup');
+    console.log(req.body);
 
     const { username, password } = req.body
     // ADD VALIDATION

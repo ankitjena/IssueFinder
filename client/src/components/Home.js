@@ -31,10 +31,9 @@ class Home extends Component {
 
   render() {
     if(this.props.loggedIn == true){
-    console.log(this.props.loggedIn)
-    console.log(this.state.problems);
     return(
       <Layout>
+        <NavBar curr="feed" />
         {this.state.problems.map(problem => (
           <Feed problem={problem} key={problem._id}/>
         ))}
