@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const passport = require('../passport');
+const mcache = require('memory-cache');
 
 router.post('/signup', (req, res) => {
     console.log('user signup');
@@ -30,6 +31,13 @@ router.post('/signup', (req, res) => {
     })
 })
 
+function setCurrentUser(token, user){
+  mcache.put(token, JSON.stringify(user))
+};
+
+function delCurrentUser(){
+  mcache.put("token", null)
+}
 router.post(
     '/login',
     function (req, res, next) {
@@ -39,25 +47,30 @@ router.post(
     },
     passport.authenticate('local'),
     (req, res) => {
+        setCurrentUser("token", req.user)
+        console.log(mcache.get("token"))
         console.log('logged in', req.user);
         var userInfo = {
             username: req.user.username
         };
         res.send(userInfo);
     }
+
 )
 
 router.get('/', (req, res, next) => {
     console.log('===== user!!======')
     console.log(req.user)
-    if (req.user) {
-        res.json({ user: req.user })
+    userActive = mcache.get("token");
+    if (userActive) {
+        res.json({ user: userActive })
     } else {
         res.json({ user: null })
     }
 })
 
 router.post('/logout', (req, res) => {
+    delCurrentUser();
     if (req.user) {
         req.logout()
         res.send({ msg: 'logging out' })

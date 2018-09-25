@@ -5,7 +5,7 @@ import Layout from './Layout';
 import NavBar from './NavBar';
 import First from './First';
 
-const DynamicPage = (loggedIn) => {
+const DynamicPage = ( {loggedIn} ) => {
   if (loggedIn == true){
   return (
     <Layout>
