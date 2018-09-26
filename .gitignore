@@ -1,4 +1,5 @@
 client/node_modules
 client/yarn.lock
+server/npm-debug.log
 server/node_modules
 server/package-lock.json

@@ -35,6 +35,7 @@ class LoginForm extends Component {
             .then(response => {
                 console.log('login response: ')
                 console.log(response)
+                localStorage.setItem('jwtToken', response.data.token);
                 if (response.status === 200) {
                     // update App.js state
                     this.props.updateUser({

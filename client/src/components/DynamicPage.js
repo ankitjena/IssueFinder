@@ -13,6 +13,7 @@ class DynamicPage extends Component {
   }
   logout(event) {
     event.preventDefault();
+    localStorage.removeItem('jwtToken');
     axios.post('http://localhost:8000/user/logout').then(response => {
       console.log(response.data)
       if (response.status === 200) {

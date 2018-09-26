@@ -4,51 +4,12 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const passport = require('../passport');
 const mcache = require('memory-cache');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const crypto = require('crypto');
-const path = require('path');
-const mongoURL = "mongodb://127.0.0.1:27017/problem"
+const jwt = require('jsonwebtoken');
 
-
-//gridfs
-const conn = mongoose.createConnection(mongoURL);
-let gfs;
-let file_name;
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('files');
-});
-var storage = new GridFsStorage({
-  url: mongoURL,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-          if(err) {
-            return reject(err);
-          }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          file_name = filename;
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'files'
-          };
-          resolve(fileInfo);
-      });
-    });
-  }
-});
-
-const upload =  multer({ storage: storage });
-
-
-
-router.post('/signup', upload.single('file'),(req, res) => {
+router.post('/signup', (req, res) => {
     console.log('user signup');
-    console.log(req.body);
 
-    const { username, password, bio } = req.body
+    const { username, password } = req.body
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
         if (err) {
@@ -61,25 +22,16 @@ router.post('/signup', upload.single('file'),(req, res) => {
         else {
             const newUser = new User({
                 username: username,
-                password: password,
-                bio: bio,
-                filename: file_name
+                password: password
             })
             newUser.save((err, savedUser) => {
                 if (err) return res.json(err)
-                res.json(savedUser)
+                return res.json(savedUser)
             })
         }
     })
 })
 
-function setCurrentUser(token, user){
-  mcache.put(token, JSON.stringify(user))
-};
-
-function delCurrentUser(){
-  mcache.put("token", null)
-}
 router.post(
     '/login',
     function (req, res, next) {
@@ -87,33 +39,35 @@ router.post(
         console.log(req.body)
         next()
     },
-    passport.authenticate('local'),
+    passport.authenticate('local', {session: false}),
     (req, res) => {
-        setCurrentUser("token", req.user)
-        console.log(mcache.get("token"))
+        const token = jwt.sign({username: req.user.username}, "eita_jwt_secret");
         console.log('logged in', req.user);
         var userInfo = {
             username: req.user.username
         };
-        res.send(userInfo);
+        console.log(token)
+        return res.json({username: req.user.username, token})
     }
 
 )
 
-router.get('/', (req, res, next) => {
+router.get('/:token', (req, res, next) => {
     console.log('===== user!!======')
-    console.log(req.user)
-    userActive = mcache.get("token");
-    console.log(userActive);
-    if (userActive) {
-        res.send(userActive)
-    } else {
-        res.send(null)
+    console.log(req.params.token);
+    jwt.verify(req.params.token, 'eita_jwt_secret', function(err, decoded) {
+      if(err) {
+        console.log("not verified")
+        return res.status(200).send(err);
+      }
+      else {
+      console.log(decoded)
+      return res.status(200).send(decoded);
     }
+    })
 })
 
 router.post('/logout', (req, res) => {
-    delCurrentUser();
     if (req.user) {
         req.logout()
         res.send({ msg: 'logging out' })
