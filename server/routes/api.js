@@ -100,9 +100,29 @@ router.post('/problems/upvote/:id', (req, res, next) => {
   })
 })
 
+router.post('/problems/upvoted/:id', (req, res, next) => {
+  console.log(req.params.id);
+  problemModel.findByIdAndUpdate(req.params.id, { $inc: {upvotes : -1} }, (err, problem) => {
+    if(err) {
+      console.log(err);
+    }
+    res.json({upvotes:problem.upvotes})
+  })
+})
+
 router.post('/problems/downvote/:id', (req, res, next) => {
   console.log(req.params.id);
   problemModel.findByIdAndUpdate(req.params.id, { $inc: {downvotes : 1} }, (err, problem) => {
+    if(err) {
+      console.log(err);
+    }
+    res.json({downvotes:problem.downvotes})
+  })
+})
+
+router.post('/problems/downvoted/:id', (req, res, next) => {
+  console.log(req.params.id);
+  problemModel.findByIdAndUpdate(req.params.id, { $inc: {downvotes : -1} }, (err, problem) => {
     if(err) {
       console.log(err);
     }
