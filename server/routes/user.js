@@ -4,12 +4,51 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const passport = require('../passport');
 const mcache = require('memory-cache');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const crypto = require('crypto');
+const path = require('path');
+const mongoURL = "mongodb://127.0.0.1:27017/problem"
 
-router.post('/signup', (req, res) => {
+
+//gridfs
+const conn = mongoose.createConnection(mongoURL);
+let gfs;
+let file_name;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('files');
+});
+var storage = new GridFsStorage({
+  url: mongoURL,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+          if(err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          file_name = filename;
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'files'
+          };
+          resolve(fileInfo);
+      });
+    });
+  }
+});
+
+const upload =  multer({ storage: storage });
+
+
+
+router.post('/signup', upload.single('file'),(req, res) => {
     console.log('user signup');
     console.log(req.body);
 
-    const { username, password } = req.body
+    const { username, password, bio } = req.body
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
         if (err) {
@@ -22,7 +61,9 @@ router.post('/signup', (req, res) => {
         else {
             const newUser = new User({
                 username: username,
-                password: password
+                password: password,
+                bio: bio,
+                filename: file_name
             })
             newUser.save((err, savedUser) => {
                 if (err) return res.json(err)
