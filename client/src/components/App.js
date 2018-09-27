@@ -34,6 +34,7 @@ class App extends Component {
     let token = localStorage.getItem('jwtToken');
     axios.get('http://localhost:8000/user/' + token).then(response => {
       console.log('Get user response: ')
+      //response = decoded object {username:'username'}
       console.log(response.data)
       if (response.data.username) {
         console.log('Get User: There is a user saved in the server session: ')
@@ -60,7 +61,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={First} loggedIn={this.state.loggedIn} />
           <Route exact path="/home" render = {() => <Home loggedIn={this.state.loggedIn} username={this.state.username}/> } />
-          <Route exact path="/profile" render ={ () => <DynamicPage updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> } />
+          <Route exact path="/profile" render ={ () => <DynamicPage updateUser={this.updateUser} username={this.state.username} loggedIn={this.state.loggedIn} /> } />
           <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} username={this.state.username} /> } />
           <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
           <Route path="/signup" render={() => <Signup/>} />

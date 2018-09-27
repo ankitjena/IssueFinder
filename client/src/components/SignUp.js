@@ -42,7 +42,7 @@ class Signup extends Component {
 		formData.append('bio', this.state.bio);
 		formData.append('username', this.state.username);
 		formData.append('password', this.state.password);
-
+		formData.append('filename', this.state.filename);
 		//request to server to add a new username/password
 		axios.post('http://localhost:8000/user/signup', formData, {
       headers : {
