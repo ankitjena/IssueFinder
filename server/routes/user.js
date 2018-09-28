@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const User = require('../models/user');
 const passport = require('../passport');
 const mcache = require('memory-cache');
 const jwt = require('jsonwebtoken');
@@ -42,6 +41,7 @@ var storage = new GridFsStorage({
 
 const upload =  multer({ storage: storage });
 
+//handle signup
 router.post('/signup', upload.single('file'), (req, res) => {
     console.log('user signup');
 
@@ -78,6 +78,7 @@ router.post('/signup', upload.single('file'), (req, res) => {
     })
 })
 
+//handle login
 router.post(
     '/login',
     function (req, res, next) {
@@ -98,6 +99,7 @@ router.post(
 
 )
 
+//verify user session
 router.get('/:token', (req, res, next) => {
     console.log('===== user!!======')
     console.log(req.params.token);
@@ -107,26 +109,19 @@ router.get('/:token', (req, res, next) => {
         return res.status(200).send(err);
       }
       else {
-      console.log(decoded)
-      return res.status(200).send(decoded);
+      console.log(decoded) //if session exists find by username and the send the whole data
+      userModel.find({username: decoded.username}, (err,data) => {
+        if(err) console.log(err);
+        else {
+          return res.status(200).send(data[0])
+        }
+      })
     }
     })
 })
 
 
-//get all users
-router.get('/', function(req, res, next) {
-  userModel.find({}, function(err, data){
-    if(err){
-      console.log(err);
-    }
-    else{
-      res.send(data);;
-    }
-  })
-})
-
-//filename of image
+//send the file by finding from filename of image
 router.get('/image/:filename', function(req, res, next)  {
   gfs.files.findOne({ filename: req.params.filename }, function(err, file)  {
     // Check if file

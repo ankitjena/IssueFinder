@@ -1,13 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Header, Container, Divider } from 'semantic-ui-react';
 
 
 
 import { pullRight, h1 } from './layout.css';
 
-const First = ({ children }) => {
-  return (
+const First = ({ loggedIn}) => {
+  console.log("loggedIn:",loggedIn);
+  if(loggedIn) {
+    return (
+      <Redirect to ={{ pathname: '/home'}} />
+    ) } else {
+    return (
     <Container>
       <Link to="/login">
         <Header as="h1" className={h1}>
@@ -19,10 +24,10 @@ const First = ({ children }) => {
           SignUp!
         </Header>
       </Link>
-      {children}
       <Divider />
     </Container>
-  );
+  )
+}
 };
 
 export default First;

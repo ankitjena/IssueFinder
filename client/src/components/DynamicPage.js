@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Header, Button } from 'semantic-ui-react';
+import { Header, Button, Image } from 'semantic-ui-react';
 import axios from 'axios';
 
 import Layout from './Layout';
@@ -32,24 +32,6 @@ class DynamicPage extends Component {
     })
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:8000/user', {
-      headers : {
-        'Content-Type' : 'application/json'
-      }
-    }).then(user => {
-      this.setState({
-        file_name : ((user.data)[0]).filename,
-        bio: ((user.data)[0]).bio
-      });
-      console.log(((user.data)[0]).filename);
-    })
-    .catch(error => {
-      console.log(error);
-      console.log("user not there");
-    })
-  }
-
   render() {
     if (this.props.loggedIn == true){
 
@@ -57,11 +39,11 @@ class DynamicPage extends Component {
         <div>
         <Layout>
           <NavBar curr="profile" />
-          <img src={`http://localhost:8000/user/image/${this.state.file_name}`} size="small" rounded />
+          <Image src={`http://localhost:8000/user/image/${this.props.userdata.filename}`} size="medium" rounded />
           <Header as="h2">Dynamic Page</Header>
           <Header as="h1">Welcome!!! </Header>
-          <Header as="h1">{this.props.username}</Header>
-          <Header as="h4">{this.state.bio}</Header>
+          <Header as="h1">{this.props.userdata.username}</Header>
+          <Header as="h4">{this.props.userdata.bio}</Header>
           <p>This page was loaded asynchronously!!!</p>
           <Button color="red" onClick={this.logout}>LogOut</Button>
         </Layout>

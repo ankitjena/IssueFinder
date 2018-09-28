@@ -15,7 +15,8 @@ class App extends Component {
     super(props)
     this.state = {
       loggedIn : false,
-      username : null
+      username : null,
+      data : {}
     }
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -35,13 +36,14 @@ class App extends Component {
     axios.get('http://localhost:8000/user/' + token).then(response => {
       console.log('Get user response: ')
       //response = decoded object {username:'username'}
-      console.log(response.data)
-      if (response.data.username) {
+      console.log(response.data, "this")
+      if (response.data) {
         console.log('Get User: There is a user saved in the server session: ')
 
         this.setState({
           loggedIn: true,
-          username: response.data.username
+          username: response.data.username,
+          data: response.data
         })
       } else {
         console.log('Get user: no user');
@@ -59,9 +61,9 @@ class App extends Component {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={First} loggedIn={this.state.loggedIn} />
+          <Route exact path="/" render = {() => <First loggedIn={this.state.loggedIn} /> } />
           <Route exact path="/home" render = {() => <Home loggedIn={this.state.loggedIn} username={this.state.username}/> } />
-          <Route exact path="/profile" render ={ () => <DynamicPage updateUser={this.updateUser} username={this.state.username} loggedIn={this.state.loggedIn} /> } />
+          <Route exact path="/profile" render ={ () => <DynamicPage updateUser={this.updateUser} loggedIn={this.state.loggedIn} userdata={this.state.data}/> } />
           <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} username={this.state.username} /> } />
           <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
           <Route path="/signup" render={() => <Signup/>} />

@@ -17,6 +17,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.username);
     axios.get('http://localhost:8000/api/problems', {
       headers : {
         'Content-Type' : 'application/json'
@@ -30,6 +31,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props.loggedIn);
     if(this.props.loggedIn == true){
     return(
       <Layout>
