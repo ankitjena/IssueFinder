@@ -57,7 +57,7 @@ router.post('/signup', upload.single('file'), (req, res) => {
 
     const { username, password, bio } = req.body
     // ADD VALIDATION
-    User.findOne({ username: username }, (err, user) => {
+    userModel.findOne({ username: username }, (err, user) => {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (user) {
@@ -66,7 +66,7 @@ router.post('/signup', upload.single('file'), (req, res) => {
             })
         }
         else {
-            const newUser = new User({
+            const newUser = new userModel({
                 username: username,
                 password: password
             })
@@ -90,11 +90,13 @@ router.post(
     (req, res) => {
         const token = jwt.sign({username: req.user.username}, "eita_jwt_secret");
         console.log('logged in', req.user);
-        var userInfo = {
-            username: req.user.username
-        };
-        console.log(token)
-        return res.json({username: req.user.username, token})
+        userModel.find({username: req.user.username}, (err,data) => {
+          if(err) console.log(err);
+          else {
+            console.log(token)
+            return res.json({username: req.user.username, token, details: data[0]})
+          }
+        })
     }
 
 )

@@ -146,5 +146,16 @@ router.post('/problems/comment/:id', (req, res, next) => {
   })
 })
 
+router.get('/problems/:username', (req, res, next) => {
+  console.log(req.params.username);
+  problemModel.find({author: req.params.username}, (err, data) => {
+    if(err) console.log(err);
+    else {
+      console.log(data);
+      res.send(data);
+    }
+  })
+})
+
 
 module.exports = router;

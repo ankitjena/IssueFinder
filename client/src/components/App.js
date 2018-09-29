@@ -37,7 +37,7 @@ class App extends Component {
       console.log('Get user response: ')
       //response = decoded object {username:'username'}
       console.log(response.data, "this")
-      if (response.data) {
+      if (response.data.username) {
         console.log('Get User: There is a user saved in the server session: ')
 
         this.setState({
@@ -47,6 +47,7 @@ class App extends Component {
         })
       } else {
         console.log('Get user: no user');
+        console.log(response.data);
         this.setState({
           loggedIn: false,
           username: null
