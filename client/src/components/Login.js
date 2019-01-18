@@ -44,6 +44,7 @@ class LoginForm extends Component {
                         data: response.data.details
                     })
                     // update the state to redirect to home
+                    // here to change login routes for user and the admin, make an if statement for the admin state
                     this.setState({
                         redirectTo: '/profile'
                     })
