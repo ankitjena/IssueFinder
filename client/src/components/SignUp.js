@@ -67,6 +67,7 @@ class Signup extends Component {
 	}
 
 render() {
+	const required = false
 	if (this.state.redirectTo) {
 		return <Redirect to = {{ pathname: this.state.redirectTo }} />
 	}
@@ -77,7 +78,7 @@ render() {
       <Form id="loginform" onSubmit={this.handleSubmit}>
 				<Form.Field>
           <label>Upload Image</label>
-          <input name="file" type="file" placeholder="upload an Image.."  onChange={this.handleFileChange}/>
+          <input name="file" type="file" placeholder="upload an Image.." required={required}  onChange={this.handleFileChange}/>
 					<img src={this.state.file} height="500" width="500"/>
         </Form.Field>
 				<Form.Field>

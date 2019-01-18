@@ -47,13 +47,6 @@ router.post('/signup', upload.single('file'), (req, res) => {
 
     let model = new userModel(req.body);
     model.filename = file_name;
-    model.save()
-    .then((team) => {
-      res.send(team)
-    })
-    .catch(err => {
-      res.send(err)
-    })
 
     const { username, password, bio } = req.body
     // ADD VALIDATION
@@ -66,14 +59,13 @@ router.post('/signup', upload.single('file'), (req, res) => {
             })
         }
         else {
-            const newUser = new userModel({
-                username: username,
-                password: password
-            })
-            newUser.save((err, savedUser) => {
-                if (err) return res.json(err)
-                return res.json(savedUser)
-            })
+          model.save()
+          .then((team) => {
+            res.send(team)
+          })
+          .catch(err => {
+            res.send(err)
+          })
         }
     })
 })

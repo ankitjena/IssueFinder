@@ -8,7 +8,7 @@ const userSchema = new Schema({
 
 	username: { type: String, required: false },
 	password: { type: String, required: false },
-	filename: {type:String, required:true},
+	filename: {type:String, required:false},
 	bio: {type:String, required:false}
 })
 
