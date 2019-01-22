@@ -9,6 +9,7 @@ import NoMatch from './NoMatch';
 import LoginForm from './Login';
 import Signup from './SignUp'
 import First from './First';
+import Admin from './Admin';
 
 class App extends Component {
   constructor(props){
@@ -68,6 +69,7 @@ class App extends Component {
           <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} username={this.state.username} /> } />
           <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
           <Route path="/signup" render={() => <Signup/>} />
+          <Route exact path="/admin" render = {() => <Admin loggedIn={this.state.loggedIn} /> } />
           <Route component={NoMatch} />
         </Switch>
       </div>

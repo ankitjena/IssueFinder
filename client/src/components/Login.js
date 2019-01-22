@@ -10,7 +10,8 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            redirectTo: null
+            redirectTo: null,
+            admin:false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -45,9 +46,17 @@ class LoginForm extends Component {
                     })
                     // update the state to redirect to home
                     // here to change login routes for user and the admin, make an if statement for the admin state
-                    this.setState({
-                        redirectTo: '/profile'
-                    })
+                    if (this.state.username === 'admin' && this.state.password === 'pwd'){
+                      this.setState({
+                        redirectTo: '/admin',
+                        admin:true
+                      })
+                    }
+                    else{
+                      this.setState({
+                          redirectTo: '/profile'
+                      })
+                    }
                 }
             }).catch(error => {
                 console.log('login error: ')
