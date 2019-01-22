@@ -16,7 +16,8 @@ class App extends Component {
     this.state = {
       loggedIn : false,
       username : null,
-      data : {}
+      data : {},
+      admin: false
     }
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -43,7 +44,8 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: response.data.username,
-          data: response.data
+          data: response.data,
+          admin: response.data.admin
         })
       } else {
         console.log('Get user: no user');

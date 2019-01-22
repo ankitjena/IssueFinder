@@ -9,7 +9,8 @@ const userSchema = new Schema({
 	username: { type: String, required: false },
 	password: { type: String, required: false },
 	filename: {type:String, required:false},
-	bio: {type:String, required:false}
+	bio: {type:String, required:false},
+	admin: {type: Boolean, default:false}
 })
 
 // Define schema methods
