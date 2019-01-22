@@ -14,7 +14,6 @@ class Signup extends Component {
 			image:'',
 			bio:'',
 			file:null
-
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -34,36 +33,70 @@ class Signup extends Component {
   }
 
 	handleSubmit(event) {
-		console.log('sign-up handleSubmit, username: ')
-		console.log(this.state.username)
+		// console.log('sign-up handleSubmit, username: ')
+		// console.log(this.state.username)
 		event.preventDefault()
-		const formData = new FormData();
-		formData.append('file', this.state.image);
-		formData.append('bio', this.state.bio);
-		formData.append('username', this.state.username);
-		formData.append('password', this.state.password);
-		formData.append('filename', this.state.filename);
-		//request to server to add a new username/password
-		axios.post('http://localhost:8000/user/signup', formData, {
-      headers : {
-        'Content-Type': 'application/json'
-      }
-		})
-			.then(response => {
-				console.log(response)
-				if (!response.data.errmsg) {
-					console.log('successful signup')
-					this.setState({ //redirect to login page
-						redirectTo: '/login'
-					})
-				} else {
-					console.log('username already taken')
-				}
-			}).catch(error => {
-				console.log('signup error: ')
-				console.log(error)
+		if(this.state.username === 'admin'  && this.state.password === 'pwd'){
+			const formData = new FormData();
+			formData.append('file', this.state.image);
+			formData.append('bio', this.state.bio);
+			formData.append('username', this.state.username);
+			formData.append('password', this.state.password);
+			formData.append('filename', this.state.filename);
+			formData.append('admin', true);
 
+			//request to server to add a new username/password
+			axios.post('http://localhost:8000/user/signup', formData, {
+	      headers : {
+	        'Content-Type': 'application/json'
+	      }
 			})
+				.then(response => {
+					console.log(response)
+					if (!response.data.errmsg) {
+						console.log('successful signup')
+						this.setState({ //redirect to login page
+							redirectTo: '/login'
+						})
+					} else {
+						console.log('username already taken')
+					}
+				}).catch(error => {
+					console.log('signup error: ')
+					console.log(error)
+
+				})
+		}
+		else{
+			const formData = new FormData();
+			formData.append('file', this.state.image);
+			formData.append('bio', this.state.bio);
+			formData.append('username', this.state.username);
+			formData.append('password', this.state.password);
+			formData.append('filename', this.state.filename);
+
+			//request to server to add a new username/password
+			axios.post('http://localhost:8000/user/signup', formData, {
+	      headers : {
+	        'Content-Type': 'application/json'
+	      }
+			})
+				.then(response => {
+					console.log(response)
+					if (!response.data.errmsg) {
+						console.log('successful signup')
+						this.setState({ //redirect to login page
+							redirectTo: '/login'
+						})
+					} else {
+						console.log('username already taken')
+					}
+				}).catch(error => {
+					console.log('signup error: ')
+					console.log(error)
+
+				})
+		}
 	}
 
 render() {

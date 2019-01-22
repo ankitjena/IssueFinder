@@ -9,7 +9,6 @@ import NoMatch from './NoMatch';
 import LoginForm from './Login';
 import Signup from './SignUp'
 import First from './First';
-import Admin from './Admin';
 
 class App extends Component {
   constructor(props){
@@ -17,7 +16,8 @@ class App extends Component {
     this.state = {
       loggedIn : false,
       username : null,
-      data : {}
+      data : {},
+      admin: false
     }
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -44,7 +44,8 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: response.data.username,
-          data: response.data
+          data: response.data,
+          admin: response.data.admin
         })
       } else {
         console.log('Get user: no user');
@@ -69,7 +70,6 @@ class App extends Component {
           <Route exact path="/submit" render = { () => <Submit loggedIn={this.state.loggedIn} username={this.state.username} /> } />
           <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
           <Route path="/signup" render={() => <Signup/>} />
-          <Route exact path="/admin" render = {() => <Admin loggedIn={this.state.loggedIn} /> } />
           <Route component={NoMatch} />
         </Switch>
       </div>

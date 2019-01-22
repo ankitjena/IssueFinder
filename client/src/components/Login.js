@@ -46,17 +46,9 @@ class LoginForm extends Component {
                     })
                     // update the state to redirect to home
                     // here to change login routes for user and the admin, make an if statement for the admin state
-                    if (this.state.username === 'admin' && this.state.password === 'pwd'){
-                      this.setState({
-                        redirectTo: '/admin',
-                        admin:true
-                      })
-                    }
-                    else{
-                      this.setState({
-                          redirectTo: '/profile'
-                      })
-                    }
+                    this.setState({
+                        redirectTo: '/profile'
+                    })
                 }
             }).catch(error => {
                 console.log('login error: ')
