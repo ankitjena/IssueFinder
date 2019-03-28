@@ -24,7 +24,6 @@ class DynamicPage extends Component {
     event.preventDefault();
     localStorage.removeItem('jwtToken');
     axios.post('http://localhost:8000/user/logout').then(response => {
-      console.log(response.data)
       if (response.status === 200) {
         this.props.updateUser({
           loggedIn: false,
@@ -37,7 +36,6 @@ class DynamicPage extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       username: this.props.userdata.username,
       bio: this.props.userdata.bio,
@@ -49,7 +47,6 @@ class DynamicPage extends Component {
   fetchProblems(username) {
     axios.get('http://localhost:8000/api/problems/'+username)
       .then(res => {
-        console.log(res.data);
         this.setState({
           problems: res.data
         })
@@ -58,8 +55,6 @@ class DynamicPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log(this.props);
     if(this.props.userdata !== prevProps.userdata) {
       this.setState({
         username: this.props.userdata.username,
@@ -72,7 +67,6 @@ class DynamicPage extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.props.loggedIn == true){
 
       return (

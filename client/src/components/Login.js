@@ -26,8 +26,6 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log('handleSubmit')
-
         axios
             .post('http://localhost:8000/user/login', {
                 username: this.state.username,

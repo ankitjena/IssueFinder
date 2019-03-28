@@ -42,7 +42,6 @@ class Submit extends Component {
   }
 
   resetForm() {
-    console.log("form reset");
     document.getElementById('submitform').reset();
     this.setState ({
       category: '',
@@ -62,16 +61,15 @@ class Submit extends Component {
     formData.append('subject', this.state.subject);
     formData.append('description', this.state.description);
     formData.append('filename', this.state.filename);
-    for (var key of formData.entries()) {
-      console.log(key[0],key[1]);
-    }
+    // for (var key of formData.entries()) {
+    //   console.log(key[0],key[1]);
+    // }
     axios.post('http://localhost:8000/api/', formData, {
       headers : {
         'Content-Type': 'application/json'
       }
     })
     .then(res => {
-      console.log(res);
       alert('submitted');
       this.resetForm();
     })
@@ -82,7 +80,6 @@ class Submit extends Component {
 
   render() {
     if(this.props.loggedIn == true) {
-    console.log(this.props.loggedIn)
     const options = [{key: 'hc', value: 'Healthcare', text:'Healthcare'},
                       {key: 'rs', value: 'Road Safety', text:'Road Safety'},
                     {key: 'el', value: 'Electricity', text:'Electricity'}]
@@ -115,7 +112,6 @@ class Submit extends Component {
   }
   else {
     {
-      console.log(this.props.loggedIn)
       return(
         <First />
       )
