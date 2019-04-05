@@ -44,7 +44,6 @@ const upload =  multer({ storage: storage });
 //handle signup
 router.post('/signup', upload.single('file'), (req, res) => {
     console.log('user signup');
-
     let model = new userModel(req.body);
     model.filename = file_name;
 

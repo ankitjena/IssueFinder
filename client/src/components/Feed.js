@@ -27,7 +27,6 @@ class Feed extends Component {
     this.setState({
       display: this.state.display?false:true
     })
-    console.log(this.state);
   }
 
   addUpVote() {
@@ -38,10 +37,9 @@ class Feed extends Component {
     let url = 'http://localhost:8000/api/problems/upvote/' + this.props.problem._id;
     axios.post(url)
     .then(res => {
-      console.log(res.data);
+      /* */
     })
     .catch(err => {
-      console.log(err);
       this.setState({
         upvotes: this.state.upvotes - 1,
         upvoted: this.state.upvoted?false:true
@@ -57,10 +55,9 @@ class Feed extends Component {
     let url = 'http://localhost:8000/api/problems/upvoted/' + this.props.problem._id;
     axios.post(url)
     .then(res => {
-      console.log(res.data);
+      /* */
     })
     .catch(err => {
-      console.log(err);
       this.setState({
         upvotes: this.state.upvotes + 1,
         upvoted: this.state.upvoted?false:true
@@ -76,10 +73,9 @@ class Feed extends Component {
     let url = 'http://localhost:8000/api/problems/downvote/' + this.props.problem._id;
     axios.post(url)
     .then(res => {
-      console.log(res.data);
+      /* */
     })
     .catch(err => {
-      console.log(err);
       this.setState({
         downvotes: this.state.downvotes - 1,
         downvoted: this.state.downvoted?false:true
@@ -95,10 +91,9 @@ class Feed extends Component {
     let url = 'http://localhost:8000/api/problems/downvoted/' + this.props.problem._id;
     axios.post(url)
     .then(res => {
-      console.log(res.data);
+      /* */
     })
     .catch(err => {
-      console.log(err);
       this.setState({
         downvotes: this.state.downvotes + 1,
         downvoted: this.state.downvoted?false:true

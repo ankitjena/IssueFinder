@@ -16,11 +16,9 @@ class CommentBox extends Component{
   }
 
   componentDidMount() {
-    console.log(this.props.comments);
     this.setState({
       comments: this.props.comments
     })
-    console.log(this.state.comments);
   }
 
   handleChange(e) {
@@ -35,16 +33,14 @@ class CommentBox extends Component{
       author: this.props.username,
       text: this.state.text
     }
-    console.log(data);
     this.state.comments.push(data);
     this.setState({
       comments: this.state.comments
     })
-    console.log(this.state.comments);
     let url = "http://localhost:8000/api/problems/comment/" + this.props.id;
     axios.post(url, data)
     .then(res => {
-      console.log(res.data);
+      /* */
     })
     .catch(err => {
       console.log(err);

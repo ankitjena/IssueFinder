@@ -49,7 +49,6 @@ class App extends Component {
         })
       } else {
         console.log('Get user: no user');
-        console.log(response.data);
         this.setState({
           loggedIn: false,
           username: null
@@ -59,7 +58,6 @@ class App extends Component {
   }
 
   render() {
-  console.log(this.state);
   return (
     <Router>
       <div>

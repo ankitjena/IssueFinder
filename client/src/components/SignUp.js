@@ -33,8 +33,6 @@ class Signup extends Component {
   }
 
 	handleSubmit(event) {
-		// console.log('sign-up handleSubmit, username: ')
-		// console.log(this.state.username)
 		event.preventDefault()
 		if(this.state.username === 'admin'  && this.state.password === 'pwd'){
 			const formData = new FormData();
@@ -52,7 +50,6 @@ class Signup extends Component {
 	      }
 			})
 				.then(response => {
-					console.log(response)
 					if (!response.data.errmsg) {
 						console.log('successful signup')
 						this.setState({ //redirect to login page
@@ -82,7 +79,6 @@ class Signup extends Component {
 	      }
 			})
 				.then(response => {
-					console.log(response)
 					if (!response.data.errmsg) {
 						console.log('successful signup')
 						this.setState({ //redirect to login page

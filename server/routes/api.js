@@ -91,7 +91,6 @@ router.get('/image/:filename', function(req, res, next)  {
 });
 
 router.post('/problems/upvote/:id', (req, res, next) => {
-  console.log(req.params.id);
   problemModel.findByIdAndUpdate(req.params.id, { $inc: {upvotes : 1} }, (err, problem) => {
     if(err) {
       console.log(err);
@@ -101,7 +100,6 @@ router.post('/problems/upvote/:id', (req, res, next) => {
 })
 
 router.post('/problems/upvoted/:id', (req, res, next) => {
-  console.log(req.params.id);
   problemModel.findByIdAndUpdate(req.params.id, { $inc: {upvotes : -1} }, (err, problem) => {
     if(err) {
       console.log(err);
@@ -111,7 +109,6 @@ router.post('/problems/upvoted/:id', (req, res, next) => {
 })
 
 router.post('/problems/downvote/:id', (req, res, next) => {
-  console.log(req.params.id);
   problemModel.findByIdAndUpdate(req.params.id, { $inc: {downvotes : 1} }, (err, problem) => {
     if(err) {
       console.log(err);
@@ -121,7 +118,6 @@ router.post('/problems/downvote/:id', (req, res, next) => {
 })
 
 router.post('/problems/downvoted/:id', (req, res, next) => {
-  console.log(req.params.id);
   problemModel.findByIdAndUpdate(req.params.id, { $inc: {downvotes : -1} }, (err, problem) => {
     if(err) {
       console.log(err);
@@ -131,13 +127,10 @@ router.post('/problems/downvoted/:id', (req, res, next) => {
 })
 
 router.post('/problems/comment/:id', (req, res, next) => {
-  console.log(req.body);
-  console.log(req.params.id);
   let obj = {
     author: req.body.author,
     text: req.body.text
   }
-  console.log(obj);
   problemModel.findByIdAndUpdate(req.params.id, { $push : {comments: obj}}, (err, problem) => {
     if(err) {
       console.log(err);
@@ -147,11 +140,9 @@ router.post('/problems/comment/:id', (req, res, next) => {
 })
 
 router.get('/problems/:username', (req, res, next) => {
-  console.log(req.params.username);
   problemModel.find({author: req.params.username}, (err, data) => {
     if(err) console.log(err);
     else {
-      console.log(data);
       res.send(data);
     }
   })
