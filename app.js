@@ -16,7 +16,6 @@ var user = require('./routes/user');
 
 var app = express();
 
-
 mongoose.connect("mongodb://127.0.0.1:27017/problem", err => {
   if(err) {
     console.log(err);
@@ -24,7 +23,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/problem", err => {
     console.log("Connected to database");
   }
 });
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -39,6 +37,7 @@ app.set('view engine', 'jade')
 
 app.use('/', index);
 app.use('/api', api);
+app.use('/user', user);
 
 app.use(
 	session({
@@ -49,20 +48,17 @@ app.use(
 	})
 )
 
-
-
-
 // Passport
 app.use(passport.initialize())
 app.use(passport.session()) // calls the deserializeUser
 
 
-app.use('/user', user);
-
-
-
-
-
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
